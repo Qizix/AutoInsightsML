@@ -6,4 +6,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-CMD ["bash", "-c", "uvicorn app.main:app --host 0.0.0.0 --port 8000 & streamlit run ui/app.py --server.port 8501 --server.enableCORS false"]
+CMD ["bash", "-c", "uvicorn main:app --host 0.0.0.0 --port 8000 & streamlit run ui/app.py --server.port 8501 --server.enableCORS false"]

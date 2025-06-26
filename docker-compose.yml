@@ -1,17 +1,17 @@
+
 services:
   backend:
     build: .
-    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
     ports:
       - "8000:8000"
     volumes:
-      - .:/app
+      - /mnt/data/Projects/Big/autoinsights:/app
 
   streamlit:
     build: .
     ports:
       - "8501:8501"
-    command: streamlit run ui/app.py
+    depends_on:
       - backend
     volumes:
-      - .:/app
+      - /mnt/data/Projects/Big/autoinsights:/app

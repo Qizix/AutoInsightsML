@@ -1,7 +1,7 @@
 import streamlit as st
 import requests
 
-st.title("Auto Insigasdfasdfh")
+st.title("Auto Insights")
 
 file = st.file_uploader("Upload your CSV", type="csv")
 if file:
