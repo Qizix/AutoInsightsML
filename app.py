@@ -6,13 +6,13 @@ from services import DataCleaner, DataLoader
 # Load menu
 file = None
 st.title("Auto Insights")
-if not file:
-    file = st.file_uploader("Upload your CSV", type="csv")
 
 # Frame with data
 if "dl" not in st.session_state:
+    file = st.file_uploader("Upload your CSV", type="csv")
     dl = DataLoader(file)
     st.session_state["dl"] = dl
+    st.rerun()
 
 dataframe = st.session_state["dl"].dataframe()
 st.write(st.session_state["dl"].check_nulls())
