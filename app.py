@@ -24,5 +24,5 @@ fill_missing_values_button, _, _ = st.columns(3)
 if fill_missing_values_button.button("Fill missing values", use_container_width=True):
     dc = DataCleaner(st.session_state["dl"].dataframe(), st.session_state["dl"].define_columns())
     st.session_state["dl"].df = dc.handle_missing()
-    st.experimental_rerun()
+    st.rerun()
 
