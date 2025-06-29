@@ -1,5 +1,6 @@
 import pandas as pd
 
+# need remake for 1 object
 class DataCleaner:
     def __init__(self, df: pd.DataFrame, column_types):
         self.df = df.copy()
