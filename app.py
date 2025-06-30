@@ -59,8 +59,9 @@ else:
 
     with save_csv:
         st.download_button(
-            "Save table in csv format", use_container_width=True,
-            data = st.session_state["dl"].save_csv(),
-            file_name="table.csv", # need fix to loaded name
-            mime="text/csv"
+            "Save table in csv format",
+            use_container_width=True,
+            data=st.session_state["dl"].save_csv(),
+            file_name="table.csv",  # need fix to loaded name
+            mime="text/csv",
         )
