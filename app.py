@@ -14,6 +14,8 @@ if "dl" not in st.session_state:
 
 # showing table
 st.write(st.session_state["dl"].check_nulls()) # need to show as additional columns under the table
+st.dataframe(st.session_state["dl"].check_nulls().to_frame().T)
+
 st.data_editor(st.session_state["dl"].dataframe())
 
 # Action buttons

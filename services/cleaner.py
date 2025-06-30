@@ -1,19 +1,23 @@
 import pandas as pd
 
-# need remake for 1 object
 class DataCleaner:
     def __init__(self, df: pd.DataFrame, column_types):
-        self.df = df.copy()
+        self.df = df
         self.column_types = column_types
 
-    def handle_missing(self, missing_strategy='mean') -> pd.DataFrame:
+    def handle_missing(self, missing_strategy_num='mean', missing_strategy_cat='Unknown') -> pd.DataFrame:
         for col in self.column_types['numerical']:
-            if missing_strategy == 'mean':
+            if missing_strategy_num == 'mean':
                 self.df[col] = self.df[col].fillna(self.df[col].mean())
-            elif missing_strategy == 'median':
+            elif missing_strategy_num == 'median':
                 self.df[col] = self.df[col].fillna(self.df[col].median())
+
         for col in self.column_types['categorical']:
-            self.df[col] = self.df[col].fillna('Unknown')
+            if missing_strategy_cat == "Unknown":
+                self.df[col] = self.df[col].fillna('Unknown')
+            elif missing_strategy_cat == "mode":
+                self.df[col] = self.df[col].fillna(self.df[col].mode()[0])
+
         return self.df
 
 
