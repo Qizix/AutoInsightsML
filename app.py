@@ -23,8 +23,12 @@ fill_missing_values, qfill_missing_values_button, wfill_missing_values_button = 
 # Fill missing data, using DataCleaner
 with fill_missing_values:
     fill_missing_values_button = fill_missing_values.button("Fill missing values", use_container_width=True)
-    num_strat = st.segmented_control("Numerical filling strategy", ['mean', 'median'], default = "mean")
-    col_strat = st.segmented_control("Categorical filling strategy", ['Unknown', 'mode'], default = 'Unknown')
+
+    fill_missing_values_selectors_container = st.container(border=True)
+    with fill_missing_values_selectors_container:
+        num_strat = st.segmented_control("Numerical filling strategy", ['mean', 'median'], default = "mean")
+        col_strat = st.segmented_control("Categorical filling strategy", ['Unknown', 'mode'], default = 'Unknown')
+
     if fill_missing_values_button:
         dc = DataCleaner(st.session_state["dl"].dataframe(), st.session_state["dl"].define_columns())
         st.session_state["dl"].df = dc.handle_missing(num_strat, col_strat)
