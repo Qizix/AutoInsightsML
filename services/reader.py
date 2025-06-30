@@ -21,3 +21,5 @@ if __name__ == '__main__':
     dl = DataLoader('iris.csv')
     print(dl.define_columns())
     print(dl.check_nulls())
+    if dl.check_nulls().sum():
+        print("zxc")
