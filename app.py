@@ -62,7 +62,8 @@ else:
                 default=0,
             )
             drop_rate = st.select_slider(
-                "How much % missing data needed to drop:", options=range(101),
+                "How much % missing data needed to drop:",
+                options=range(101),
                 disabled=is_missing,
             )
             if drop_missing_values_button:
