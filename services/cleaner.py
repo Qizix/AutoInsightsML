@@ -28,6 +28,8 @@ class DataCleaner:
         print(thresh)
         return self.df.dropna(axis=axis, thresh=thresh)
 
+    def drop_duplicates(self):
+        return self.df.drop_duplicates()
 
 if __name__ == "__main__":
     from reader import DataLoader
