@@ -34,16 +34,22 @@ else:
             )
             col_strat = st.segmented_control(
                 "Categorical filling strategy",
-                ["Unknown", "mode"],
-                default="Unknown",
+                ["text", "mode"],
+                default="text",
                 disabled=is_missing,
             )
+            text_value = st.text_input(
+                "Categorical filling text",
+                value="Unknown",
+                disabled=is_missing
+                    )
 
         if fill_missing_values_button:
             dc = DataCleaner(
                 st.session_state["dl"].dataframe(),
                 st.session_state["dl"].define_columns(),
             )
+            if col_strat == "text": col_strat = text_value
             st.session_state["dl"].df = dc.handle_missing(num_strat, col_strat)
             st.rerun()
 

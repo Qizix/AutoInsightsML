@@ -1,6 +1,5 @@
 import pandas as pd
 
-
 class DataCleaner:
     def __init__(self, df: pd.DataFrame, column_types):
         self.df = df
@@ -16,10 +15,10 @@ class DataCleaner:
                 self.df[col] = self.df[col].fillna(self.df[col].median())
 
         for col in self.column_types["categorical"]:
-            if missing_strategy_cat == "Unknown":
-                self.df[col] = self.df[col].fillna("Unknown")
-            elif missing_strategy_cat == "mode":
+            if missing_strategy_cat == "mode":
                 self.df[col] = self.df[col].fillna(self.df[col].mode()[0])
+            else:
+                self.df[col] = self.df[col].fillna(missing_strategy_cat)
 
         return self.df
 
