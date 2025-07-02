@@ -10,9 +10,11 @@ if "dl" not in st.session_state:
     if file:
         dl = DataLoader(file)
         st.session_state["dl"] = dl
+        st.session_state["file_name"] = file.name
         st.rerun()
 else:
     # show missing data count for each column
+    st.write(st.session_state['file_name'])
     st.dataframe(st.session_state["dl"].check_nulls().to_frame().T)
     st.data_editor(st.session_state["dl"].dataframe())
     st.write("DataFrame shape:", st.session_state["dl"].df.shape)
@@ -127,6 +129,6 @@ else:
         "Save table in csv format",
         use_container_width=True,
         data=st.session_state["dl"].save_csv(),
-        file_name="table.csv",  # need fix to loaded name
+        file_name=st.session_state['file_name'],
         mime="text/csv",
     )
