@@ -104,7 +104,7 @@ else:
 
         with data_encode_type_column:
             encode_method = st.selectbox(
-                "Select control type", ["one-hot", "label", "dummy"]
+                "Select control type", ["one-hot", "label", "ordinal"]
             )
 
         with data_encode_columns_column:

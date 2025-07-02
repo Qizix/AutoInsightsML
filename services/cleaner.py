@@ -39,7 +39,14 @@ class DataCleaner:
             self.df=self.df.drop(columns, axis=1)
 
             return self.df
-        return encoder.fit_transform(self.df[columns])
+        if method == "label":
+            encoder = LabelEncoder()
+        if method == "ordinal":
+            encoder = OrdinalEncoder()
+
+        for column in columns:
+            self.df[column] = encoder.fit_transform(self.df[column])
+        return self.df
 
 if __name__ == "__main__":
     from reader import DataLoader
@@ -47,5 +54,5 @@ if __name__ == "__main__":
     dl = DataLoader("titanic.csv")
     dc = DataCleaner(dl.df, dl.define_columns())
     column = ['Sex', "Embarked"]
-    print(dc.encode_categorical(column).info)
+    print(dc.encode_categorical(column))
 
