@@ -16,7 +16,7 @@ else:
     # show missing data count for each column
     st.write(st.session_state['file_name'])
     st.dataframe(st.session_state["dl"].check_nulls().to_frame().T)
-    st.data_editor(st.session_state["dl"].dataframe())
+    st.session_state["dl"].df = st.data_editor(st.session_state["dl"].dataframe())
     st.write("DataFrame shape:", st.session_state["dl"].df.shape)
 
     with st.expander("Missing data and duplicates handling"):
