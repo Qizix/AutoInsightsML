@@ -44,8 +44,8 @@ class DataCleaner:
 if __name__ == "__main__":
     from reader import DataLoader
 
-    dl = DataLoader("iris.csv")
+    dl = DataLoader("titanic.csv")
     dc = DataCleaner(dl.df, dl.define_columns())
-    column = 'Species'
-    print(dc.encode_categorical(column))
+    column = ['Sex', "Embarked"]
+    print(dc.encode_categorical(column).info)
 

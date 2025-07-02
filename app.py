@@ -41,17 +41,16 @@ else:
                     disabled=is_missing,
                 )
                 text_value = st.text_input(
-                    "Categorical filling text",
-                    value="Unknown",
-                    disabled=is_missing
-                        )
+                    "Categorical filling text", value="Unknown", disabled=is_missing
+                )
 
             if fill_missing_values_button:
                 dc = DataCleaner(
                     st.session_state["dl"].dataframe(),
                     st.session_state["dl"].define_columns(),
                 )
-                if col_strat == "text": col_strat = text_value
+                if col_strat == "text":
+                    col_strat = text_value
                 st.session_state["dl"].df = dc.handle_missing(num_strat, col_strat)
                 st.rerun()
 
@@ -85,13 +84,43 @@ else:
                     )
                     st.rerun()
 
-    with drop_duplicates:
-        if st.button("Drop duplicates", use_container_width=True):
+        with drop_duplicates:
+            if st.button("Drop duplicates", use_container_width=True):
+                dc = DataCleaner(
+                    st.session_state["dl"].dataframe(),
+                    st.session_state["dl"].define_columns(),
+                )
+                st.session_state["dl"].df = dc.drop_duplicates()
+                st.rerun()
+
+    with st.expander("Categorical data encoding"):
+        (
+            data_encode_type_column,
+            data_encode_columns_column,
+            data_encode_button_column,
+        ) = st.columns(3)
+
+        with data_encode_type_column:
+            encode_method = st.selectbox(
+                "Select control type", ["one-hot", "label", "dummy"]
+            )
+
+        with data_encode_columns_column:
+            data_encode_columns = st.multiselect(
+                    "Select columns for encoding",
+                    st.session_state["dl"].define_columns()['categorical']
+                    )
+        with data_encode_button_column:
+            data_encode_button = st.button("Encode data", use_container_width=True)
+
+        if data_encode_button:
             dc = DataCleaner(
                 st.session_state["dl"].dataframe(),
                 st.session_state["dl"].define_columns(),
             )
-            st.session_state["dl"].df = dc.drop_duplicates()
+            st.session_state["dl"].df = dc.encode_categorical(
+                data_encode_columns, method=encode_method
+            )
             st.rerun()
 
     st.download_button(
