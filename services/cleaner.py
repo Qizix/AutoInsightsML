@@ -1,4 +1,5 @@
 import pandas as pd
+from sklearn.preprocessing import OrdinalEncoder, LabelEncoder, OneHotEncoder
 
 class DataCleaner:
     def __init__(self, df: pd.DataFrame, column_types):
@@ -31,10 +32,20 @@ class DataCleaner:
     def drop_duplicates(self):
         return self.df.drop_duplicates()
 
+    def encode_categorical(self, columns, method = "one-hot") -> pd.DataFrame:
+        if method == "one-hot":
+            one_hot=pd.get_dummies(self.df[columns])
+            self.df=pd.concat([self.df, one_hot], axis=1)
+            self.df=self.df.drop(columns, axis=1)
+
+            return self.df
+        return encoder.fit_transform(self.df[columns])
+
 if __name__ == "__main__":
     from reader import DataLoader
 
     dl = DataLoader("iris.csv")
     dc = DataCleaner(dl.df, dl.define_columns())
-    print(dl.df.shape)
-    print(dc.drop_rows_with_missing_data(0.3, 0))
+    column = 'Species'
+    print(dc.encode_categorical(column))
+
