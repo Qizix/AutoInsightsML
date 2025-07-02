@@ -41,8 +41,6 @@ class DataCleaner:
             return self.df
         if method == "label":
             encoder = LabelEncoder()
-        if method == "ordinal":
-            encoder = OrdinalEncoder()
 
         for column in columns:
             self.df[column] = encoder.fit_transform(self.df[column])
