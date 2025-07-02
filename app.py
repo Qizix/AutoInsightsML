@@ -14,7 +14,7 @@ if "dl" not in st.session_state:
         st.rerun()
 else:
     # show missing data count for each column
-    st.write(st.session_state['file_name'])
+    st.write(st.session_state["file_name"])
     st.dataframe(st.session_state["dl"].check_nulls().to_frame().T)
     st.session_state["dl"].df = st.data_editor(st.session_state["dl"].dataframe())
     st.write("DataFrame shape:", st.session_state["dl"].df.shape)
@@ -101,20 +101,15 @@ else:
             data_encode_columns_column,
             data_encode_button_column,
         ) = st.columns(3)
-
         with data_encode_type_column:
-            encode_method = st.selectbox(
-                "Select control type", ["one-hot", "label"]
-            )
-
+            encode_method = st.selectbox("Select control type", ["one-hot", "label"])
         with data_encode_columns_column:
             data_encode_columns = st.multiselect(
-                    "Select columns for encoding",
-                    st.session_state["dl"].define_columns()['categorical']
-                    )
+                "Select columns for encoding",
+                st.session_state["dl"].define_columns()["categorical"],
+            )
         with data_encode_button_column:
             data_encode_button = st.button("Encode data", use_container_width=True)
-
         if data_encode_button:
             dc = DataCleaner(
                 st.session_state["dl"].dataframe(),
@@ -129,6 +124,6 @@ else:
         "Save table in csv format",
         use_container_width=True,
         data=st.session_state["dl"].save_csv(),
-        file_name=st.session_state['file_name'],
+        file_name=st.session_state["file_name"],
         mime="text/csv",
     )
