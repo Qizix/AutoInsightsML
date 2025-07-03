@@ -12,7 +12,7 @@ AutoinsightsML is a fast, lightweight tool for quick CSV table analysis and simp
 
 ## Video expample
 
-![Video showcase](./assetss/showcase1.44.webm)
+![Video showcase](./assets/showcase1.44.webm)
 
 ## Installation
 
