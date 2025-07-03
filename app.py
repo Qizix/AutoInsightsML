@@ -38,7 +38,8 @@ else:
                     disabled=is_missing,
                 )
                 col_strat = st.segmented_control(
-                    "Categorical filling strategy", ["text", "mode"],
+                    "Categorical filling strategy",
+                    ["text", "mode"],
                     default="text",
                     disabled=is_missing,
                 )
@@ -121,7 +122,7 @@ else:
             st.rerun()
 
     with st.expander("EDA"):
-        pr = ProfileReport(st.session_state['dl'].df)
+        pr = ProfileReport(st.session_state["dl"].df)
         st_profile_report(pr)
 
     st.download_button(
