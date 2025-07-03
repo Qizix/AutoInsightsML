@@ -13,13 +13,17 @@ if "dl" not in st.session_state:
         st.session_state["dl"] = dl
         st.session_state["file_name"] = file.name
         st.rerun()
+
 else:
-    # show missing data count for each column
     st.write(st.session_state["file_name"])
 
+    # show missing data count for each column
     nulls_dataframe = st.session_state["dl"].check_nulls()
     is_missing = bool(nulls_dataframe.sum() == 0)
-    if not is_missing:  st.dataframe(nulls_dataframe.to_frame().T)
+    if not is_missing:
+        st.write("Missing data count in each columns:")
+        st.dataframe(nulls_dataframe.to_frame().T)
+
     st.session_state["dl"].df = st.data_editor(st.session_state["dl"].dataframe())
     st.write("DataFrame shape:", st.session_state["dl"].df.shape)
 
