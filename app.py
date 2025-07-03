@@ -5,7 +5,6 @@ from services import DataCleaner, DataLoader
 
 st.title("Auto Insights")
 
-# load data, data loaded in object DataLoader
 if "dl" not in st.session_state:
     file = st.file_uploader("Upload your CSV", type="csv")
     if file:
