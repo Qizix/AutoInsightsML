@@ -1,5 +1,6 @@
 import streamlit as st
-
+from ydata_profiling import ProfileReport
+from streamlit_pandas_profiling import st_profile_report
 from services import DataCleaner, DataLoader
 
 st.title("Auto Insights")
@@ -37,8 +38,7 @@ else:
                     disabled=is_missing,
                 )
                 col_strat = st.segmented_control(
-                    "Categorical filling strategy",
-                    ["text", "mode"],
+                    "Categorical filling strategy", ["text", "mode"],
                     default="text",
                     disabled=is_missing,
                 )
@@ -119,6 +119,10 @@ else:
                 data_encode_columns, method=encode_method
             )
             st.rerun()
+
+    with st.expander("EDA"):
+        pr = ProfileReport(st.session_state['dl'].df)
+        st_profile_report(pr)
 
     st.download_button(
         "Save table in csv format",
