@@ -16,7 +16,10 @@ if "dl" not in st.session_state:
 else:
     # show missing data count for each column
     st.write(st.session_state["file_name"])
-    st.dataframe(st.session_state["dl"].check_nulls().to_frame().T)
+
+    nulls_dataframe = st.session_state["dl"].check_nulls()
+    is_missing = bool(nulls_dataframe.sum() == 0)
+    if not is_missing:  st.dataframe(nulls_dataframe.to_frame().T)
     st.session_state["dl"].df = st.data_editor(st.session_state["dl"].dataframe())
     st.write("DataFrame shape:", st.session_state["dl"].df.shape)
 
@@ -24,7 +27,6 @@ else:
         fill_missing_values, drop_missing_values, drop_duplicates = st.columns(3)
         # Fill missing data, using DataCleaner
         with fill_missing_values:
-            is_missing = bool(st.session_state["dl"].check_nulls().sum() == 0)
             fill_missing_values_button = fill_missing_values.button(
                 "Fill missing values", use_container_width=True, disabled=is_missing
             )
