@@ -3,6 +3,7 @@ from ydata_profiling import ProfileReport
 from streamlit_pandas_profiling import st_profile_report
 from services import DataCleaner, DataLoader
 
+
 st.title("Auto Insights")
 
 if "dl" not in st.session_state:
