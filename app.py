@@ -4,7 +4,7 @@ from streamlit_pandas_profiling import st_profile_report
 from services import DataCleaner, DataLoader
 
 
-st.title("Auto Insights")
+st.title("Auto Insights ML")
 
 if "dl" not in st.session_state:
     file = st.file_uploader("Upload your CSV", type="csv")
